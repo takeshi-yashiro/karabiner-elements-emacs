@@ -320,38 +320,17 @@ manipulators.append({
   "conditions": [cond_disable]
 })
 
-# S-SPC: Toggle Eisu
+# S-SPC -> C-SPC (Toggle Eisu)
 manipulators.append({
   "type": "basic",
   "from": {
     "key_code": "spacebar",
     "modifiers": { "mandatory": ["left_shift"], "optional": ["caps_lock"] }
   },
-  "conditions": [
-    {
-      "type": "input_source_if",
-      "input_sources": [
-        { "language": "en" }
-      ]
-    }
-  ],
-  "to": [{ "key_code": "japanese_kana" }]
-})
-manipulators.append({
-  "type": "basic",
-  "from": {
+  "to": [{
     "key_code": "spacebar",
-    "modifiers": { "mandatory": ["left_shift"], "optional": ["caps_lock"] }
-  },
-  "conditions": [
-    {
-      "type": "input_source_if",
-      "input_sources": [
-        { "language": "ja" }
-      ]
-    }
-  ],
-  "to": [{ "key_code": "japanese_eisuu" }]
+    "modifiers": ["left_control"]
+  }]
 })
 
 # C-SPC -> C-@

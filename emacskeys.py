@@ -110,7 +110,7 @@ def ctrl_x_cmd(src, dst, src_modifiers=["control"], src_modifiers_opt=["caps_loc
   data["to"].append(clear_spc)
   return data
 
-# C-SPCを無視するコマンド
+# 通常のコマンド
 def normal_cmd(src, dst, clear_space=True, src_modifiers=["control"], src_modifiers_opt=["caps_lock"], dst_modifiers=["left_command"]):
   data = cmd(src, dst, src_modifiers=src_modifiers, src_modifiers_opt=src_modifiers_opt, dst_modifiers=dst_modifiers)
   data["conditions"].append({
@@ -122,9 +122,9 @@ def normal_cmd(src, dst, clear_space=True, src_modifiers=["control"], src_modifi
     data["to"].append(clear_spc)
   return data
 
-# 移動系のコマンド (C-SPCに基づき処理)
+# 移動系のコマンド (マークがついているときにだけShiftを付加する)
 def move_cmds(src, dst, src_modifiers=["control"], src_modifiers_opt=["caps_lock", "shift"], dst_modifiers=["left_command"]):
-  # SPACEが押されていないときはそのまま
+  # マーク（C=SPC)がついていないときはそのまま
   nospc = normal_cmd(src, dst, clear_space=False, src_modifiers=src_modifiers, src_modifiers_opt=src_modifiers_opt, dst_modifiers=dst_modifiers)
   nospc["conditions"].append({
     "type": "variable_unless",
@@ -132,7 +132,7 @@ def move_cmds(src, dst, src_modifiers=["control"], src_modifiers_opt=["caps_lock
     "value": 1
   })
 
-  # SPACEが押されているときは、Shiftを追加
+  # マーク(C-SPC)がついているときは、Shiftを追加
   if dst_modifiers is None:
     dst_modifiers = []
   dst_modifiers.append("left_shift")
@@ -249,7 +249,7 @@ for kc in ["spacebar", "open_bracket"]:
   })
   manipulators.append(c)
 
-  # (マーク開始後に C-SPC した場合はそれまでの選択をキャンセルする)
+  # (マーク開始後に C-SPC した場合はそれまでの選択をESCキーを送出してキャンセルする)
   c = normal_cmd(kc, "escape", clear_space=False, dst_modifiers=None)
   c["conditions"].append({
     "type": "variable_if",

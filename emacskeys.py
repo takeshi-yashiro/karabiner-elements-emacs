@@ -125,7 +125,7 @@ def normal_cmd(src, dst, clear_space=True, src_modifiers=["control"], src_modifi
 
 # 移動系のコマンド (マークがついているときにだけShiftを付加する)
 def move_cmds(src, dst, src_modifiers=["control"], src_modifiers_opt=["caps_lock", "shift"], dst_modifiers=["left_command"]):
-  # マーク（C=SPC)がついていないときはそのまま
+  # マーク（C-SPC)がついていないときはそのまま
   nospc = normal_cmd(src, dst, clear_space=False, src_modifiers=src_modifiers, src_modifiers_opt=src_modifiers_opt, dst_modifiers=dst_modifiers)
   nospc["conditions"].append({
     "type": "variable_unless",
@@ -136,8 +136,8 @@ def move_cmds(src, dst, src_modifiers=["control"], src_modifiers_opt=["caps_lock
   # マーク(C-SPC)がついているときは、Shiftを追加
   if dst_modifiers is None:
     dst_modifiers = []
-  dst_modifiers.append("left_shift")
-  spc = normal_cmd(src, dst, clear_space=False, src_modifiers=src_modifiers, src_modifiers_opt=src_modifiers_opt, dst_modifiers=dst_modifiers)
+  dst_modifiers_shift = dst_modifiers + ["left_shift"]
+  spc = normal_cmd(src, dst, clear_space=False, src_modifiers=src_modifiers, src_modifiers_opt=src_modifiers_opt, dst_modifiers=dst_modifiers_shift)
   spc["conditions"].append({
     "type": "variable_if",
     "name": "C-SPC",
@@ -164,13 +164,13 @@ manipulators.append(normal_cmd("d", "delete_forward", dst_modifiers=None))
 manipulators.append(normal_cmd("h", "delete_or_backspace", dst_modifiers=None))
 
 # C-k
-c = normal_cmd("k", "end", dst_modifiers=["left_shift"])
+c = normal_cmd("k", "right_arrow", dst_modifiers=["left_shift", "left_command"])
 c["to"].append({"key_code": "x", "modifiers": "left_command"})
 manipulators.append(c)
 
 # C-o
-c = normal_cmd("o", "end", dst_modifiers=None)
-c["to"].append({"key_code": "end"})
+c = normal_cmd("o", "right_arrow")
+c["to"].append({"key_code": "return_or_enter"})
 c["to"].append({"key_code": "up_arrow"})
 manipulators.append(c)
 
@@ -208,10 +208,10 @@ manipulators.append(normal_cmd("y", "v"))
 manipulators.append(normal_cmd("slash", "z"))
 
 # C-a
-manipulators.extend(move_cmds("a", "home", dst_modifiers=None))
+manipulators.extend(move_cmds("a", "left_arrow"))
 
 # C-e
-manipulators.extend(move_cmds("e", "end", dst_modifiers=None))
+manipulators.extend(move_cmds("e", "right_arrow"))
 
 # C-p
 manipulators.extend(move_cmds("p", "up_arrow", dst_modifiers=None))

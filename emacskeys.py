@@ -52,7 +52,8 @@ cond_disable = {
     "^org\\.macosforge\\.xquartz\\.X11$",
     "^org\\.macports\\.X11$",
     "^com\\.sublimetext\\.",
-    "^com\\.microsoft\\.VSCode$"
+    "^com\\.microsoft\\.VSCode$",
+    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$"
   ]
 }
 

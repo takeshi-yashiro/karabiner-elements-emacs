@@ -57,6 +57,26 @@ cond_disable = {
   ]
 }
 
+cond_disable_desktop = {
+  "type": "frontmost_application_unless",
+  "bundle_identifiers": [
+    "^com\\.microsoft\\.rdc$",
+    "^com\\.microsoft\\.rdc\\.",
+    "^com\\.thinomenon\\.RemoteDesktopConnection$",
+    "^com\\.teamviewer\\.TeamViewer$",
+    "^com\\.vmware\\.horizon$",
+    "^com\\.vmware\\.fusion$",
+    "^com\\.vmware\\.horizon$",
+    "^com\\.vmware\\.view$",
+    "^com\\.parallels\\.desktop$",
+    "^com\\.parallels\\.vm$",
+    "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
+    "^com\\.citrix\\.XenAppViewer$",
+    "^com\\.vmware\\.proxyApp\\.",
+    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$"
+  ]
+}
+
 set_spc = {
   "set_variable": {
     "name": "C-SPC",
@@ -331,7 +351,8 @@ manipulators.append({
   "to": [{
     "key_code": "spacebar",
     "modifiers": ["left_control"]
-  }]
+  }],
+  "conditions": [cond_disable_desktop]
 })
 
 # C-SPC -> C-@
@@ -344,7 +365,8 @@ manipulators.append({
   "to": [{
     "key_code": "open_bracket",
     "modifiers": ["left_control"]
-  }]
+  }],
+  "conditions": [cond_disable_desktop]
 })
 
 # C-~ -> Spotlight
@@ -385,7 +407,8 @@ manipulators.append({
   "to": [{
     "key_code": "tab",
     "modifiers": ["right_command"]
-  }]
+  }],
+  "conditions": [cond_disable_desktop]
 })
 manipulators.append({
   "type": "basic",
@@ -396,7 +419,8 @@ manipulators.append({
   "to": [{
     "key_code": "tab",
     "modifiers": ["right_command"]
-  }]
+  }],
+  "conditions": [cond_disable_desktop]
 })
 
 # Final result

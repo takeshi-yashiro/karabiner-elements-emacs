@@ -348,10 +348,15 @@ manipulators.append({
     "key_code": "spacebar",
     "modifiers": { "mandatory": ["left_shift"], "optional": ["caps_lock"] }
   },
-  "to": [{
-    "key_code": "spacebar",
-    "modifiers": ["left_control"]
-  }],
+  "to": [
+    {
+      "key_code": "spacebar",
+      "modifiers": ["left_control"]
+    },
+    {
+      "key_code": "vk_none",
+    }
+  ],
   "conditions": [cond_disable_desktop]
 })
 

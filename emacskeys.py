@@ -174,8 +174,14 @@ manipulators = []
 manipulators.append(ctrl_x_cmd("f", "o"))
 manipulators.extend(move_cmds("f", "right_arrow", dst_modifiers=None))
 
-# C-x C-c
-manipulators.append(ctrl_x_cmd("c", "q"))
+# C-x C-c (Chromeのみ Option+W のかわりに Option+Shift+W にマップ)
+c = ctrl_x_cmd("c", "w", dst_modifiers=["left_shift", "left_command"])
+c["conditions"][0] = {
+  "type": "frontmost_application_if",
+  "bundle_identifiers": ["^com\\.google\\.Chrome$"]
+}
+manipulators.append(c)
+manipulators.append(ctrl_x_cmd("c", "w"))
 
 # C-d
 manipulators.append(normal_cmd("d", "delete_forward", dst_modifiers=None))
@@ -400,6 +406,55 @@ c["conditions"] = [{
   ]
 }]
 manipulators.append(c)
+
+# スクリーンショット (PrintScreen, Shift-PrintScreen, Ctrl-Shift-PrintScreen)
+manipulators.append({
+  "type": "basic",
+  "from": {
+    "key_code": "print_screen",
+    "modifiers": { "mandatory": [], "optional": ["caps_lock"] }
+  },
+  "to": [{
+    "key_code": "3",
+    "modifiers": ["left_shift", "left_command"]
+  }],
+  "conditions": [cond_disable_desktop]
+})
+manipulators.append({
+  "type": "basic",
+  "from": {
+    "key_code": "print_screen",
+    "modifiers": { "mandatory": ["shift"], "optional": ["caps_lock"] }
+  },
+  "to": [ # 本当は 4, spacebar は同時押しらしい
+    {
+      "key_code": "4",
+      "hold_down_milliseconds": 100,
+      "modifiers": ["left_shift", "left_command"]
+    },
+    {
+      "key_code": "spacebar",
+      "hold_down_milliseconds": 100,
+      "modifiers": ["left_shift", "left_command"]
+    },
+    {
+      "key_code": "vk_none"
+    }
+  ],
+  "conditions": [cond_disable_desktop]
+})
+manipulators.append({
+  "type": "basic",
+  "from": {
+    "key_code": "print_screen",
+    "modifiers": { "mandatory": ["shift", "control"], "optional": ["caps_lock"] }
+  },
+  "to": [{
+    "key_code": "4",
+    "modifiers": ["left_shift", "left_command"]
+  }],
+  "conditions": [cond_disable_desktop]
+})
 
 # Right-Option + Tab (Switch window)
 # - Simple Modifications で right_command を right_option に remap している前提

@@ -53,7 +53,8 @@ cond_disable = {
     "^org\\.macports\\.X11$",
     "^com\\.sublimetext\\.",
     "^com\\.microsoft\\.VSCode$",
-    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$"
+    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$",
+    "^com\\.utmapp\\.UTM$",
   ]
 }
 
@@ -73,7 +74,8 @@ cond_disable_desktop = {
     "^org\\.virtualbox\\.app\\.VirtualBoxVM$",
     "^com\\.citrix\\.XenAppViewer$",
     "^com\\.vmware\\.proxyApp\\.",
-    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$"
+    "^com\\.google\\.Chrome\\.app\\.efmjfjelnicpmdcmfikempdhlmainjcb$",
+    "^com\\.utmapp\\.UTM$",
   ]
 }
 
